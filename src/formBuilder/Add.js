@@ -19,9 +19,10 @@ const useStyles = createUseStyles({
   addDetails: {
     '& .popover': {
       width: '300px',
-      'z-index': '1051 !important',
+      'z-index': '999951 !important',
       '& .popover-inner': {
         border: '1px solid #1d71ad',
+        backgroundColor: 'white',
         borderRadius: '4px',
         '& .popover-header': { borderBottom: '1px solid #1d71ad' },
         '& .action-buttons': {
