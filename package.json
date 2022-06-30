@@ -24,6 +24,7 @@
   "scripts": {
     "clean": "rimraf node_modules coverage dist",
     "build": "microbundle --no-compress --format modern,cjs --jsx React.createElement",
+    "prepare": "npm run build",
     "start": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement",
     "prettier": "prettier -w src && prettier -w example/src",
     "flow": "flow",
