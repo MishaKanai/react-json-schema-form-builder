@@ -4,7 +4,7 @@ import Tooltip from "../Tooltip";
 import { getRandomId } from "../utils";
 import { Parameters, FormInput } from "../types";
 import { PlaceholderInput } from "../inputs/PlaceholderInput";
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../textFieldContext/TextField';
 
 // specify the inputs required for a string type object
 function CardLongAnswerParameterInputs({

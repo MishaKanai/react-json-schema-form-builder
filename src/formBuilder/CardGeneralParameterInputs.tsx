@@ -1,5 +1,5 @@
 import React from "react";
-import TextField from '@material-ui/core/TextField';
+import TextField from '../textFieldContext/TextField';
 import classnames from "classnames";
 import GeneralParameterInputs from "./GeneralParameterInputs";
 import { defaultUiProps, defaultDataProps, categoryToNameMap, categoryType, subtractArray, getRandomId } from "./utils";

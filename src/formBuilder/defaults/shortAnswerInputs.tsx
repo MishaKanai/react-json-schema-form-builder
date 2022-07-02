@@ -8,7 +8,7 @@ import FBCheckbox from "../checkbox/FBCheckbox";
 import { getRandomId } from "../utils";
 import { Parameters, FormInput } from "../types";
 import { PlaceholderInput } from "../inputs/PlaceholderInput";
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../textFieldContext/TextField';
 
 const formatDictionary = {
   '': 'None',

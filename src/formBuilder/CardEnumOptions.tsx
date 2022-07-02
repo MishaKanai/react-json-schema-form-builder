@@ -2,7 +2,7 @@ import * as React from "react";
 import IconButton from '@material-ui/core/IconButton';
 import Clear from '@material-ui/icons/Clear';
 import Add from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../textFieldContext/TextField';
 
 export default function CardEnumOptions({
   initialValues,

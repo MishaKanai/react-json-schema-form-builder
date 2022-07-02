@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Parameters } from '../types';
 import { getRandomId } from '../utils';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../textFieldContext/TextField';
 
 export function PlaceholderInput({
   parameters,

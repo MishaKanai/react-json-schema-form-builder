@@ -13,7 +13,7 @@ import { FormInput, Mods } from "./types";
 import Tooltip from '@material-ui/core/Tooltip';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../textFieldContext/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';

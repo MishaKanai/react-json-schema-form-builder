@@ -9,7 +9,7 @@ import DEFAULT_FORM_INPUTS from "./defaults/defaultFormInputs";
 import { Mods } from "./types";
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../textFieldContext/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

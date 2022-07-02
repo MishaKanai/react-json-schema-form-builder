@@ -9,7 +9,7 @@ import numberInputs from "./numberInputs";
 import defaultInputs from "./defaultInputs";
 import { getRandomId } from "../utils";
 import { CardBody, Parameters, Mods, FormInput } from "../types";
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../textFieldContext/TextField';
 
 // specify the inputs required for a string type object
 function CardArrayParameterInputs({
