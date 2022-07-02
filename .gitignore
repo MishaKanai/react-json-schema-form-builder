@@ -8,7 +8,7 @@ node_modules
 coverage
 
 # builds
-dist
+lib
 example/build
 
 .DS_Store

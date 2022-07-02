@@ -1,12 +1,12 @@
 module.exports = {
   testPathIgnorePatterns: ["/node_modules/", "/example/"],
-  setupFilesAfterEnv: ["./src/setupTests.js"], 
+  setupFilesAfterEnv: ["./src/setupTests.ts"], 
   transform: {
-      "\\.[jt]sx?$": "babel-jest"
+      "\\.[t]sx?$": "ts-jest"
   },
   collectCoverageFrom: [
-    "src/**/*.js",
-    "!src/index.js"
+    "src/**/*.ts",
+    "!src/index.ts"
   ],
   coverageReporters: [
     "text",
