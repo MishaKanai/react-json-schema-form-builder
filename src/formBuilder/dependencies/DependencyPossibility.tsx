@@ -53,6 +53,7 @@ export default function DependencyPossibility({
       }) => onChange(newPossibility)} parentEnums={parentEnums} parentType={parentType} parentName={parentName} parentSchema={parentSchema} path={path} />
     </div>
     <IconButton
+      size="small"
       onClick={() => onDelete()}
     >
       <Clear />
