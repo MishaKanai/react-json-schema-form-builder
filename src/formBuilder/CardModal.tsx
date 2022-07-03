@@ -73,18 +73,25 @@ export default function CardModal({
         });
       }} />
     </DialogContent>
-    <DialogActions>
-      <Button onClick={() => {
-        onClose();
-        onChange(componentPropsState);
-      }} color='primary'>
-        Save
-      </Button>
-      <Button onClick={() => {
-        onClose();
-        setComponentProps(componentProps);
-      }} color='secondary'>
+    <DialogActions style={{ display: 'flex', justifyContent: 'space-between'}}>      
+      <Button
+        variant="contained"
+        onClick={() => {
+          onClose();
+          setComponentProps(componentProps);
+        }}
+      >
         Cancel
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          onClose();
+          onChange(componentPropsState);
+        }}
+        color='primary'
+      >
+        Save
       </Button>
     </DialogActions>
   </Dialog>;
