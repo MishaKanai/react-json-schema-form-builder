@@ -26,6 +26,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import includeValidationsContext from "../includeValidationsContext/includeValidationsContext";
 
 const useStyles = makeStyles({
   cardInteractions: {
@@ -105,7 +106,8 @@ export default function Section({
   const [keyError, setKeyError] = React.useState(null);
   // keep requirements in state to avoid rapid updates
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [elementId] = React.useState(getRandomId());
+  const elementId = React.useMemo(getRandomId, []);
+  const includeValidations = React.useContext(includeValidationsContext);
   const objectNameHelperText = mods && mods.tooltipDescriptions && mods.tooltipDescriptions && typeof mods.tooltipDescriptions.cardSectionObjectName === 'string' ? mods.tooltipDescriptions.cardSectionObjectName : 'The key to the object that will represent this form section.';
   const displayNameHelperText = mods && mods.tooltipDescriptions && mods.tooltipDescriptions && typeof mods.tooltipDescriptions.cardSectionDisplayName === 'string' ? mods.tooltipDescriptions.cardSectionDisplayName : 'The name of the form section that will be shown to users of the form.';
   const sectionDescriptionHelperText = mods && mods.tooltipDescriptions && mods.tooltipDescriptions && typeof mods.tooltipDescriptions.cardSectionDescription === 'string' ? mods.tooltipDescriptions.cardSectionDescription : 'A description of the section which will be visible on the form.';
@@ -307,7 +309,7 @@ export default function Section({
             </IconButton>
           </Tooltip>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <FBCheckbox onChangeValue={() => onRequireToggle()} isChecked={required} label='Required' id={`${elementId}_required`} />
+            {includeValidations && <FBCheckbox onChangeValue={() => onRequireToggle()} isChecked={required} label='Required' id={`${elementId}_required`} />}
           </div>
         </div>
       </div>

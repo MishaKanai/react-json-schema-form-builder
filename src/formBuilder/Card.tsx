@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
+import includeValidationsContext from "../includeValidationsContext/includeValidationsContext";
 
 const useStyles = makeStyles({
   cardInteractions: {
@@ -58,7 +59,8 @@ export default function Card({
 }) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [elementId] = React.useState(getRandomId());
+  const elementId = React.useMemo(getRandomId, []);
+  const includeValidations = React.useContext(includeValidationsContext);
   return <React.Fragment>
     <Collapse isOpen={cardOpen} toggleCollapse={() => setCardOpen(!cardOpen)} title={<React.Fragment>
       <span>
@@ -99,8 +101,8 @@ export default function Card({
       </span>
     </React.Fragment>} className={`card-container ${componentProps.dependent ? 'card-dependent' : ''} ${componentProps.$ref === undefined ? '' : 'card-reference'}`}>
       <div /* className={classes.cardEntries}*/ style={{
-           borderBottom: '1px solid gray',
-           margin: '.5em 1.5em 0 1.5em',
+        borderBottom: '1px solid gray',
+        margin: '.5em 1.5em 0 1.5em',
       }}>
         <CardGeneralParameterInputs parameters={(componentProps as any)} onChange={onChange} allFormInputs={allFormInputs} mods={mods} showObjectNameInput={showObjectNameInput} />
       </div>
@@ -108,24 +110,24 @@ export default function Card({
         <Tooltip placement="top" title="Additional configurations for this form element">
           <IconButton
             color="primary"
-            onClick={() => setModalOpen(true)} 
+            onClick={() => setModalOpen(true)}
           >
             <EditIcon />
           </IconButton>
         </Tooltip>
         <Tooltip placement='top' title="Delete form element">
-          <IconButton            
+          <IconButton
             onClick={onDelete}
           >
             <DeleteIcon color="error" />
           </IconButton>
         </Tooltip>
-        <div style={{ display: 'flex', alignItems: 'center'}}>
-        <FBCheckbox onChangeValue={() => onChange({
-          ...componentProps,
-          required: !componentProps.required
-        })} isChecked={!!componentProps.required} label='Required' id={`${elementId}_required`} />
-        </div>        
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {includeValidations && <FBCheckbox onChangeValue={() => onChange({
+            ...componentProps,
+            required: !componentProps.required
+          })} isChecked={!!componentProps.required} label='Required' id={`${elementId}_required`} />}
+        </div>
       </div>
       <CardModal componentProps={componentProps} isOpen={modalOpen} onClose={() => setModalOpen(false)} onChange={(newComponentProps: Record<string, string | number | boolean | Array<string | number>>) => {
         onChange(newComponentProps);

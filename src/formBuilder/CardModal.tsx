@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '../textFieldContext/TextField';
+import includeValidationsContext from "../includeValidationsContext/includeValidationsContext";
 
 export default function CardModal({
   componentProps,
@@ -29,6 +30,7 @@ export default function CardModal({
   React.useEffect(() => {
     setComponentProps(componentProps);
   }, [componentProps]);
+  const includeValidations = React.useContext(includeValidationsContext);
   return <Dialog open={isOpen} data-test='card-modal'>
     <DialogTitle>
       <div style={{
@@ -39,12 +41,12 @@ export default function CardModal({
     </DialogTitle>
 
     <DialogContent>
-      <TypeSpecificParameters parameters={componentPropsState} onChange={(newState: any) => {
+      {includeValidations && <TypeSpecificParameters parameters={componentPropsState} onChange={(newState: any) => {
         setComponentProps({
           ...componentPropsState,
           ...newState
         });
-      }} />
+      }} />}
       <div>
         <TextField
           label="Column Size"
