@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Input from '@material-ui/core/Input';
+import Input from '@mui/material/Input';
 import CardEnumOptions from "../CardEnumOptions";
 import CardSelector from "./CardSelector";
 import FBCheckbox from "../checkbox/FBCheckbox";
 import { getRandomId } from "../utils";
-import IconButton from '@material-ui/core/IconButton';
-import Clear from '@material-ui/icons/Clear';
-import Add from '@material-ui/icons/Add';
+import IconButton from '@mui/material/IconButton';
+import Clear from '@mui/icons-material/Clear';
+import Add from '@mui/icons-material/Add';
 // handle value options for different card types
 
 export default function ValueSelector({

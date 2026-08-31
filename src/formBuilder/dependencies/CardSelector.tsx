@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import IconButton from '@material-ui/core/IconButton';
-import Clear from '@material-ui/icons/Clear';
+import IconButton from '@mui/material/IconButton';
+import Clear from '@mui/icons-material/Clear';
 import { getRandomId } from "../utils";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 // a field that lets you choose adjacent blocks
 
 export default function CardSelector({
@@ -36,7 +36,8 @@ export default function CardSelector({
           </li>)}
       </ul>
 
-      <FormControl fullWidth>
+      {/* variant="standard" pinned: v5's FormControl/Select default flipped to 'outlined'. */}
+      <FormControl fullWidth variant="standard">
           <InputLabel shrink id={elementId + "-label"}>{placeholder}</InputLabel>
           <Select
             fullWidth
@@ -44,7 +45,7 @@ export default function CardSelector({
             id={elementId}
             value={''}
             label={placeholder}
-            onChange={(e: React.ChangeEvent<{ value: string, name: string }>) => {
+            onChange={(e: SelectChangeEvent<string>) => {
               onChange([...chosenChoices, e.target.value]);
             }}
           >

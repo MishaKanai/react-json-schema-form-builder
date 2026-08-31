@@ -1,17 +1,16 @@
 import React from "react";
 import classnames from "classnames";
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles({
-  checkbox: {
-    '& *': {
-      display: 'inline-block'
-    },
-    '& input': {
-      marginRight: '5px'
-    }
+// Box + sx rather than a plain div: these are descendant selectors, not flat properties.
+const checkboxSx = {
+  '& *': {
+    display: 'inline-block'
+  },
+  '& input': {
+    marginRight: '5px'
   }
-});
+};
 type Props = {
   onChangeValue: (...args: Array<any>) => any;
   isChecked: boolean;
@@ -34,7 +33,6 @@ export default function FBCheckbox({
   dataTest = '',
   labelClassName = ''
 }: Props) {
-  const classjss = useStyles();
   const classes = classnames('fb-checkbox', {
     'edit-checkbox': !disabled && use === 'edit',
     'action-checkbox': !disabled && use === 'action',
@@ -43,12 +41,12 @@ export default function FBCheckbox({
   });
   const potentialCheckboxId = id !== '' ? id : label;
   const checkboxId = potentialCheckboxId !== '' ? potentialCheckboxId : null;
-  return <div data-test='checkbox' className={`${classes} ${classjss.checkbox}`}>
+  return <Box data-test='checkbox' className={classes} sx={checkboxSx}>
       <input type='checkbox' id={checkboxId} data-test={dataTest || undefined} onChange={disabled ? () => {} : onChangeValue} value={value} disabled={disabled} checked={isChecked} />
       <div className='checkbox-overlay'>
         {label && <label htmlFor={checkboxId} className={labelClassName || undefined}>
             {label}
           </label>}
       </div>
-    </div>;
+    </Box>;
 }

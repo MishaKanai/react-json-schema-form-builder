@@ -1,9 +1,9 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React from "react";
-import Tooltip from '@material-ui/core/Tooltip';
-import Warn from '@material-ui/icons/WarningOutlined';
-import Help from '@material-ui/icons/HelpOutline';
-import useTheme from '@material-ui/core/styles/useTheme';
+import Tooltip from '@mui/material/Tooltip';
+import Warn from '@mui/icons-material/WarningOutlined';
+import Help from '@mui/icons-material/HelpOutline';
+import { useTheme } from '@mui/material/styles';
 
 export default function Example({
   text,
@@ -13,7 +13,7 @@ export default function Example({
   type: "alert" | "help";
 }) {
   const theme = useTheme()
-  return <Tooltip placement='top' title={text}>
+  return <Tooltip disableInteractive placement='top' title={text}>
     <span style={{
       textDecoration: 'underline',
     }}>

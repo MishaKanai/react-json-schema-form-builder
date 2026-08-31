@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import MuiTextField, { TextFieldProps } from '@material-ui/core/TextField';
+import MuiTextField, { TextFieldProps } from '@mui/material/TextField';
 import textFieldContext from './textFieldContext';
 
 function isObject(item) {
@@ -31,7 +31,10 @@ const TextField = (props: TextFieldProps) => {
         }
         return mergeDeep(props, extraProps)
     }, [extraProps, props])
-    return <MuiTextField {...mergedProps} />
+    // 'standard' is what v4 rendered by default; v5's TextField default is 'outlined'. Callers
+    // (props, or the textFieldContext bag) still decide — this only fills the unset case.
+    const { variant = 'standard', ...rest } = mergedProps as TextFieldProps;
+    return <MuiTextField variant={variant} {...rest} />
 }
 
 export default TextField;

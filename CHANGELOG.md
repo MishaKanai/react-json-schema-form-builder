@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.0.0]
+
+## Changed
+
+- Migrated from `@material-ui/core`/`icons`/`lab` 4.x to `@mui/material` + `@mui/icons-material` 5.x.
+  Peers are now `@mui/material` ^5.8.0, `@mui/icons-material` ^5.0.0, `react` ^17 || ^18; `@emotion/react`
+  and `@emotion/styled` must be installed alongside MUI v5.
+- Dropped all JSS (`makeStyles`): rules moved to `sx` where they carry descendant selectors, and to
+  inline styles where they are flat. No new runtime dependency.
+- Compensated for v5's changed defaults so rendering is unchanged: `variant="standard"` pinned on
+  `TextField`/`FormControl`, `color="inherit"` on the previously-neutral contained buttons, and
+  `disableInteractive` on every `Tooltip`.
+- Public surface is unchanged: `FormBuilder`, `PredefinedGallery`, `textFieldContext`,
+  `includeValidationsContext` keep their names and prop shapes. `textFieldContext` now carries
+  `@mui/material`'s `TextFieldProps` instead of `@material-ui/core`'s.
+
 ## [2.9.0]
 
 ## Added

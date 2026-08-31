@@ -7,35 +7,30 @@ import { arrows as arrowsStyle } from "./styles";
 import { parse, stringify, checkForUnsupportedFeatures, generateElementComponentsFromSchemas, addCardObj, addSectionObj, onDragEnd, countElementsFromSchema, generateCategoryHash, excludeKeys } from "./utils";
 import DEFAULT_FORM_INPUTS from "./defaults/defaultFormInputs";
 import { Mods } from "./types";
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
+// Alert/AlertTitle moved from @material-ui/lab into @mui/material in v5.
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Box from '@mui/material/Box';
 import TextField from '../textFieldContext/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  formBuilder: {
-    'text-align': 'center',
-    ...arrowsStyle,
-  },
-  formHead: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    margin: '10px auto',
-    'background-color': '#EBEBEB',
-    border: '1px solid #858F96',
-    'border-radius': '4px',
-    width: '90%',
-    padding: '20px',
-  },
-  formBody: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  formFooter: {
-    marginTop: '1em',
-    textAlign: 'center',
-  }
-});
+const formHeadStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'space-evenly',
+  margin: '10px auto',
+  backgroundColor: '#EBEBEB',
+  border: '1px solid #858F96',
+  borderRadius: '4px',
+  width: '90%',
+  padding: '20px',
+};
+const formBodyStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+const formFooterStyle: React.CSSProperties = {
+  marginTop: '1em',
+  textAlign: 'center',
+};
 export default function FormBuilder({
   schema,
   uischema,
@@ -49,7 +44,6 @@ export default function FormBuilder({
   mods?: Mods;
   className?: string;
 }) {
-  const classes = useStyles();
   const schemaData = (parse(schema) as Record<string, any>) || {};
   schemaData.type = 'object';
   const uiSchemaData = (parse(uischema) as Record<string, any>) || {};
@@ -60,14 +54,15 @@ export default function FormBuilder({
   const [cardOpenArray, setCardOpenArray] = React.useState(defaultCollapseStates);
   const categoryHash = generateCategoryHash(allFormInputs);
 
-  return <div className={`${classes.formBuilder} ${className || ''}`}>
+  // Box (not a plain div) because the `arrows` fragment carries descendant selectors.
+  return <Box className={className} sx={{ textAlign: 'center', ...arrowsStyle }}>
     <Alert style={{
       display: unsupportedFeatures.length === 0 ? 'none' : 'block'
     }} severity="warning">
       <AlertTitle>Unsupported Features</AlertTitle>
       {unsupportedFeatures.map((message, index) => <li key={index}>{message}</li>)}
     </Alert>
-    {(!mods || mods.showFormHead !== false) && <div className={classes.formHead} data-test='form-head'>
+    {(!mods || mods.showFormHead !== false) && <div style={formHeadStyle} data-test='form-head'>
       <div style={{ margin: '0em .5em' }}>
         <TextField
           label={mods && mods.labels && typeof mods.labels.formNameLabel === 'string' ? mods.labels.formNameLabel : 'Form Name'}
@@ -93,7 +88,7 @@ export default function FormBuilder({
         />
       </div>
     </div>}
-    <div className={classes.formBody}>
+    <div style={formBodyStyle}>
       <DragDropContext onDragEnd={result => onDragEnd(result, {
         schema: schemaData,
         uischema: uiSchemaData,
@@ -128,7 +123,7 @@ export default function FormBuilder({
         </Droppable>
       </DragDropContext>
     </div>
-    <div className={classes.formFooter}>
+    <div style={formFooterStyle}>
       <Add addElem={(choice: string) => {
         if (choice === 'card') {
           addCardObj({
@@ -152,5 +147,5 @@ export default function FormBuilder({
         }
       }} hidden={schemaData.properties && Object.keys(schemaData.properties).length !== 0} />
     </div>
-  </div>;
+  </Box>;
 }

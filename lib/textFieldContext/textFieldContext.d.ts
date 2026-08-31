@@ -1,4 +1,3 @@
 /// <reference types="react" />
-import { TextFieldProps } from '@material-ui/core/TextField';
-declare const textFieldContext: import("react").Context<Partial<TextFieldProps>>;
+declare const textFieldContext: import("react").Context<Partial<import("@mui/material/TextField").StandardTextFieldProps | import("@mui/material/TextField").OutlinedTextFieldProps | import("@mui/material/TextField").FilledTextFieldProps>>;
 export default textFieldContext;

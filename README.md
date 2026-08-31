@@ -18,6 +18,20 @@ View the Form Builder in action [here](https://ginkgobioworks.github.io/react-js
 
 More extensive documentation is available [here](https://react-json-schema-form-builder.readthedocs.io/en/main/)
 
+## Versions (this fork)
+
+This fork renders with Material-UI instead of Bootstrap/reactstrap, so its major version tracks the
+MUI line it peer-depends on:
+
+| Version | Peer UI library                              | React        |
+| ------- | -------------------------------------------- | ------------ |
+| 3.x     | `@mui/material` 5.x + `@mui/icons-material`  | 17.x or 18.x |
+| 2.x     | `@material-ui/core` 4.x (+ `lab`, `icons`)   | 16.x or 17.x |
+
+3.x is a UI-library swap only: no component, prop, or context name changed. `@mui/material` v5
+needs `@emotion/react` and `@emotion/styled` installed alongside it (the library itself imports
+neither directly, and adds no JSS).
+
 ## Quickstart
 
 ```bash

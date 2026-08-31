@@ -1,11 +1,11 @@
 import * as React from "react";
 import DependencyField from "./dependencies/DependencyField";
 import { Parameters } from "./types";
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '../textFieldContext/TextField';
 import includeValidationsContext from "../includeValidationsContext/includeValidationsContext";
 
@@ -74,8 +74,11 @@ export default function CardModal({
       }} />
     </DialogContent>
     <DialogActions style={{ display: 'flex', justifyContent: 'space-between'}}>      
+      {/* color="inherit" keeps v4's neutral grey contained button: v5's default color is
+          'primary', where v4's was 'default'. */}
       <Button
         variant="contained"
+        color="inherit"
         onClick={() => {
           onClose();
           setComponentProps(componentProps);

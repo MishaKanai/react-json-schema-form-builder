@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
 import FBCheckbox from "../checkbox/FBCheckbox";
 import { getRandomId } from "../utils";
 import { Parameters, FormInput } from "../types";
@@ -93,7 +93,8 @@ function CardShortAnswerParameterInputs({
       />
     </div>
     <div style={{ marginTop: '1em' }}>
-      <FormControl>
+      {/* variant="standard" pinned: v5's FormControl/Select default flipped to 'outlined'. */}
+      <FormControl variant="standard">
         <InputLabel shrink id="format-select-label">Format</InputLabel>
         <Select
           labelId="format-select-label"
@@ -116,7 +117,8 @@ function CardShortAnswerParameterInputs({
       </FormControl>
     </div>
     <div style={{ marginTop: '1em' }}>
-      <FormControl>
+      {/* variant="standard" pinned: v5's FormControl/Select default flipped to 'outlined'. */}
+      <FormControl variant="standard">
         <InputLabel shrink id="auto-select-label">Auto Complete Category</InputLabel>
         <Select
           labelId="auto-select-label"

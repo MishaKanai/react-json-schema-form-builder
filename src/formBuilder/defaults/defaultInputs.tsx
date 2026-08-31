@@ -4,13 +4,6 @@ import CardEnumOptions from "../CardEnumOptions";
 import { getRandomId } from "../utils";
 import { Parameters, FormInput } from "../types";
 import TextField from '../../textFieldContext/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  hidden: {
-    display: 'none'
-  }
-});
 // specify the inputs required for a string type object
 export function CardDefaultParameterInputs({
   parameters,
@@ -72,7 +65,6 @@ function MultipleChoice({
   parameters: Parameters;
   onChange: (newParams: Parameters) => void;
 }) {
-  const classes = useStyles();
   const enumArray = Array.isArray(parameters.enum) ? parameters.enum : [];
   // eslint-disable-next-line no-restricted-globals
   const containsUnparsableString = enumArray.some(val => isNaN(val));
@@ -94,7 +86,7 @@ function MultipleChoice({
         });
       }
     }} isChecked={Array.isArray(parameters.enumNames)} label='Display label is different from value' id={`${elementId}_different`} />
-      <div className={containsUnparsableString || !enumArray.length ? classes.hidden : ''}>
+      <div style={containsUnparsableString || !enumArray.length ? { display: 'none' } : undefined}>
         <FBCheckbox onChangeValue={() => {
         if (containsString || !isNumber) {
           // attempt converting enum values into numbers

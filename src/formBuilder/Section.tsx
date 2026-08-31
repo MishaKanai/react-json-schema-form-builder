@@ -10,30 +10,28 @@ import Card from "./Card";
 import { checkForUnsupportedFeatures, generateElementComponentsFromSchemas, countElementsFromSchema, addCardObj, addSectionObj, onDragEnd } from "./utils";
 import { getRandomId } from "./utils";
 import { FormInput, Mods } from "./types";
-import Tooltip from '@material-ui/core/Tooltip';
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
+import Tooltip from '@mui/material/Tooltip';
+// Alert/AlertTitle moved from @material-ui/lab into @mui/material in v5.
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import TextField from '../textFieldContext/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@mui/material/IconButton';
+import ArrowUpward from '@mui/icons-material/ArrowUpward';
+import ArrowDownward from '@mui/icons-material/ArrowDownward';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import includeValidationsContext from "../includeValidationsContext/includeValidationsContext";
 
-const useStyles = makeStyles({
-  cardInteractions: {
-    margin: '.5em 1.5em',
-    display: 'flex'
-  }
-});
+const cardInteractionsStyle: React.CSSProperties = {
+  margin: '.5em 1.5em',
+  display: 'flex'
+};
 export default function Section({
   name,
   required,
@@ -95,7 +93,6 @@ export default function Section({
   mods?: Mods;
   categoryHash: Record<string, string>;
 }) {
-  const classes = useStyles();
   const unsupportedFeatures = checkForUnsupportedFeatures(schema || {}, uischema || {}, allFormInputs);
   const schemaData = schema || {};
   const elementNum = countElementsFromSchema(schemaData);
@@ -114,7 +111,7 @@ export default function Section({
   return <React.Fragment>
     <Collapse isOpen={cardOpen} toggleCollapse={() => setCardOpen(!cardOpen)} title={<React.Fragment>
       <span>
-        <Tooltip placement='top' title="Move form element up">
+        <Tooltip disableInteractive placement='top' title="Move form element up">
           <span>
             <IconButton
               size="small"
@@ -128,7 +125,7 @@ export default function Section({
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip placement='top' title="Move form element down">
+        <Tooltip disableInteractive placement='top' title="Move form element down">
           <span>
             <IconButton
               size="small"
@@ -154,14 +151,15 @@ export default function Section({
       <div /* className={`section-entries ${reference ? 'section-reference' : ''}`} */>
         <div>
           {reference ? <div className='section-entry section-reference'>
-            <FormControl>
+            {/* variant="standard" pinned: v5's FormControl/Select default flipped to 'outlined'. */}
+            <FormControl variant="standard">
               <InputLabel shrink id={elementId + "-select-label"}>Reference Section</InputLabel>
               <Select
                 labelId={elementId + "-select-label"}
                 id={elementId + "-select"}
                 value={reference}
                 label="Reference Section"
-                onChange={(e: React.ChangeEvent<{ name: string, value: string }>) => {
+                onChange={(e: SelectChangeEvent<string>) => {
                   onChange(schema, uischema, e.target.value);
                 }}
               >
@@ -292,8 +290,8 @@ export default function Section({
             }
           }} hidden={schemaData.properties && Object.keys(schemaData.properties).length !== 0} />
         </div>
-        <div className={classes.cardInteractions}>
-          <Tooltip placement="top" title="Additional configurations for this form element">
+        <div style={cardInteractionsStyle}>
+          <Tooltip disableInteractive placement="top" title="Additional configurations for this form element">
             <IconButton
               color="primary"
               onClick={() => setModalOpen(true)}
@@ -301,7 +299,7 @@ export default function Section({
               <EditIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip placement='top' title="Delete form element">
+          <Tooltip disableInteractive placement='top' title="Delete form element">
             <IconButton
               onClick={onDelete}
             >

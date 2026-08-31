@@ -2,8 +2,8 @@ import React from "react";
 import Tooltip from "../Tooltip";
 import CardSelector from "./CardSelector";
 import ValueSelector from "./ValueSelector";
-import IconButton from '@material-ui/core/IconButton';
-import Clear from '@material-ui/icons/Clear';
+import IconButton from '@mui/material/IconButton';
+import Clear from '@mui/icons-material/Clear';
 
 export default function DependencyPossibility({
   possibility,

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import FBRadioGroup from "./radio/FBRadioGroup";
 import { getRandomId } from "./utils";
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/AddBoxRounded';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/AddBoxRounded';
 
 export default function Add({
   addElem,
@@ -23,7 +23,7 @@ export default function Add({
   return <div style={{
     display: hidden ? 'none' : 'initial'
   }}>
-    <Tooltip placement='top' title="Create new form element">
+    <Tooltip disableInteractive placement='top' title="Create new form element">
       <IconButton
         color="primary"
         size="small"
@@ -48,7 +48,9 @@ export default function Add({
         }} />
       </DialogContent>
       <DialogActions style={{ display: 'flex', justifyContent: 'space-between'}}>
-        <Button variant="contained" onClick={() => setPopoverOpen(false)}>
+        {/* color="inherit" keeps v4's neutral grey contained button: v5's default color is
+            'primary', where v4's was 'default'. */}
+        <Button variant="contained" color="inherit" onClick={() => setPopoverOpen(false)}>
           Cancel
         </Button>
         <Button variant="contained" onClick={() => {

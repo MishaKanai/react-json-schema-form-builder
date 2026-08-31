@@ -4,24 +4,21 @@ import classnames from "classnames";
 import GeneralParameterInputs from "./GeneralParameterInputs";
 import { defaultUiProps, defaultDataProps, categoryToNameMap, categoryType, subtractArray, getRandomId } from "./utils";
 import { Parameters, Mods, FormInput } from "./types";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-const useStyles = makeStyles(theme => ({
-  row: {
-    display: 'flex'
-  },
-  entry: {
-     margin: 0,
-    width: '50%',
-    'text-align': 'left',
-    padding: '0.5em',
-  }
-}))
+const rowStyle: React.CSSProperties = {
+  display: 'flex'
+};
+const entryStyle: React.CSSProperties = {
+  margin: 0,
+  width: '50%',
+  textAlign: 'left',
+  padding: '0.5em',
+};
 
 export default function CardGeneralParameterInputs({
   parameters,
@@ -36,7 +33,6 @@ export default function CardGeneralParameterInputs({
   allFormInputs: Record<string, FormInput>;
   showObjectNameInput?: boolean;
 }) {
-  const classes = useStyles();
   const [keyState, setKeyState] = React.useState(parameters.name);
   const [keyError, setKeyError] = React.useState(null);
   const [titleState, setTitleState] = React.useState(parameters.title);
@@ -69,8 +65,8 @@ export default function CardGeneralParameterInputs({
   const descriptionHelperText = mods && mods.tooltipDescriptions && typeof mods.tooltipDescriptions.cardDescription === 'string' ? mods.tooltipDescriptions.cardDescription : 'This will appear as help text on the form';
   const inputTypeHelperText = mods && mods.tooltipDescriptions && typeof mods.tooltipDescriptions.cardInputType === 'string' ? mods.tooltipDescriptions.cardInputType : 'The type of form input displayed on the form';
   return <React.Fragment>
-    <div className={classes.row}>
-      {showObjectNameInput && <div className={classes.entry}>
+    <div style={rowStyle}>
+      {showObjectNameInput && <div style={entryStyle}>
         <TextField
           helperText={keyError ?? objectNameHelperText}
           label={objectNameLabel}
@@ -100,7 +96,7 @@ export default function CardGeneralParameterInputs({
           }}
         />
       </div>}
-      <div className={`${classes.entry} ${parameters.$ref === undefined ? '' : 'disabled-input'}`}>
+      <div style={entryStyle} className={parameters.$ref === undefined ? undefined : 'disabled-input'}>
         <TextField
           helperText={displayNameHelperText}
           label={displayNameLabel}
@@ -117,8 +113,8 @@ export default function CardGeneralParameterInputs({
         />
       </div>
     </div>
-    <div className={classes.row}>
-      <div className={`${classes.entry} ${parameters.$ref ? 'disabled-input' : ''}`}>
+    <div style={rowStyle}>
+      <div style={entryStyle} className={parameters.$ref ? 'disabled-input' : undefined}>
         <TextField
           helperText={descriptionHelperText}
           label={descriptionLabel}
@@ -134,10 +130,11 @@ export default function CardGeneralParameterInputs({
           }}
         />
       </div>
-      <div className={classnames(classes.entry, {
+      <div style={entryStyle} className={classnames({
         'wide-card-entry': !showObjectNameInput
       })}>
-        <FormControl>
+        {/* variant="standard" pinned: v5's FormControl/Select default flipped to 'outlined'. */}
+        <FormControl variant="standard">
           <InputLabel id="inputtype-select-label">{inputTypeLabel}</InputLabel>
           <Select
             labelId="inputtype-select-label"

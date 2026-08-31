@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { TextFieldProps } from '@material-ui/core/TextField';
+import { TextFieldProps } from '@mui/material/TextField';
 
 const textFieldContext = createContext<Partial<TextFieldProps>>(undefined);
 export default textFieldContext;

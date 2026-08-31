@@ -1,10 +1,10 @@
 import { FormInput, Parameters } from "../types";
 import React from "react";
 import { PlaceholderInput } from "../inputs/PlaceholderInput";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export function CardReferenceParameterInputs({
   parameters,
@@ -28,14 +28,15 @@ function RefChoice({
   const pathArr = (parameters.$ref || '').split('/');
   // const currentValueLabel = pathArr.length === 3 && pathArr[0] === '#' && pathArr[1] === 'definitions' && (parameters.definitionData || {})[pathArr[2]] ? parameters.definitionData[pathArr[2]].title || parameters.$ref : parameters.$ref;
   return <div className='card-select'>
-      <FormControl>
+      {/* variant="standard" pinned: v5's FormControl/Select default flipped to 'outlined'. */}
+      <FormControl variant="standard">
         <InputLabel shrink id={"refchoice-select-label"}>Reference</InputLabel>
         <Select
           labelId={"refchoice-select-label"}
           id={"refchoice-select"}
           value={parameters.$ref}
           label="Reference"
-          onChange={(e: React.ChangeEvent<{ name: string, value: string }>) => {
+          onChange={(e: SelectChangeEvent<string>) => {
             onChange({ ...parameters,
               $ref: e.target.value
             });

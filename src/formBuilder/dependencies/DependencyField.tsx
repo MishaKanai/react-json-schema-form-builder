@@ -4,49 +4,48 @@ import FBTooltip from "../Tooltip";
 import DependencyWarning from "./DependencyWarning";
 import DependencyPossibility from "./DependencyPossibility";
 import { getRandomId } from "../utils";
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Add from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import Add from '@mui/icons-material/Add';
 
-const useStyles = makeStyles({
-  dependencyField: {
-    '& .fa': {
-      cursor: 'pointer'
-    },
-    '& .plus': {
-      marginLeft: '1em'
-    },
-    '& h4': {
-      marginBottom: '.5em'
-    },
-    '& h5': {
-      fontSize: '1em'
-    },
-    '& .form-dependency-select': {
-      fontSize: '0.75em',
-      marginBottom: '1em'
-    },
-    '& .form-dependency-conditions': {
-      textAlign: 'left',
-      '& .form-dependency-condition': {
-        padding: '1em',
-        border: '1px solid gray',
-        borderRadius: '4px',
-        margin: '1em',
-        '& *': {
-          textAlign: 'initial'
-        }
+// Box + sx rather than a plain div: these are descendant selectors, not flat properties.
+const dependencyFieldSx = {
+  '& .fa': {
+    cursor: 'pointer'
+  },
+  '& .plus': {
+    marginLeft: '1em'
+  },
+  '& h4': {
+    marginBottom: '.5em'
+  },
+  '& h5': {
+    fontSize: '1em'
+  },
+  '& .form-dependency-select': {
+    fontSize: '0.75em',
+    marginBottom: '1em'
+  },
+  '& .form-dependency-conditions': {
+    textAlign: 'left',
+    '& .form-dependency-condition': {
+      padding: '1em',
+      border: '1px solid gray',
+      borderRadius: '4px',
+      margin: '1em',
+      '& *': {
+        textAlign: 'initial'
       }
-    },
-    '& p': {
-      fontSize: '0.75em'
-    },
-    '& .fb-radio-button': {
-      display: 'block'
     }
+  },
+  '& p': {
+    fontSize: '0.75em'
+  },
+  '& .fb-radio-button': {
+    display: 'block'
   }
-});
+};
 
 // checks whether an array corresponds to oneOf dependencies
 function checkIfValueBasedDependency(dependents: Array<{
@@ -88,9 +87,8 @@ export default function DependencyField({
   onChange: (newParams: DependencyParams) => void;
 }) {
   const [elementId] = useState(getRandomId());
-  const classes = useStyles();
   const valueBased = checkIfValueBasedDependency(parameters.dependents || []);
-  return <div className={`form-dependency ${classes.dependencyField}`}>
+  return <Box className='form-dependency' sx={dependencyFieldSx}>
     <h4>
       Dependencies{' '}
       <FBTooltip type='help' text='Control whether other form elements show based on this one' />
@@ -154,7 +152,7 @@ export default function DependencyField({
         });
       }} />) : ''}
 
-      <Tooltip placement="top" title="Add another dependency relation linking this element and other form elements">
+      <Tooltip disableInteractive placement="top" title="Add another dependency relation linking this element and other form elements">
         <span className='plus'>
           <IconButton
             onClick={() => {
@@ -177,5 +175,5 @@ export default function DependencyField({
         </span>
       </Tooltip>
     </div>
-  </div>;
+  </Box>;
 }

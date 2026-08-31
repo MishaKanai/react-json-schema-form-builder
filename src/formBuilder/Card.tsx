@@ -1,5 +1,5 @@
 import * as React from "react";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import FBCheckbox from "./checkbox/FBCheckbox";
 import Collapse from "./Collapse/Collapse";
 import CardModal from "./CardModal";
@@ -8,22 +8,19 @@ import Add from "./Add";
 import FBTooltip from "./Tooltip";
 import { getRandomId } from "./utils";
 import { Parameters, Mods, FormInput } from "./types";
-import IconButton from '@material-ui/core/IconButton';
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@mui/material/IconButton';
+import ArrowUpward from '@mui/icons-material/ArrowUpward';
+import ArrowDownward from '@mui/icons-material/ArrowDownward';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete';
 import includeValidationsContext from "../includeValidationsContext/includeValidationsContext";
 
-const useStyles = makeStyles({
-  cardInteractions: {
-    margin: '.5em 1.5em',
-    display: 'flex',
-  }
-});
+const cardInteractionsStyle: React.CSSProperties = {
+  margin: '.5em 1.5em',
+  display: 'flex',
+};
 export default function Card({
   componentProps,
   onChange,
@@ -57,14 +54,13 @@ export default function Card({
   allFormInputs: Record<string, FormInput>;
   showObjectNameInput?: boolean;
 }) {
-  const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState(false);
   const elementId = React.useMemo(getRandomId, []);
   const includeValidations = React.useContext(includeValidationsContext);
   return <React.Fragment>
     <Collapse isOpen={cardOpen} toggleCollapse={() => setCardOpen(!cardOpen)} title={<React.Fragment>
       <span>
-        <Tooltip placement='top' title="Move form element up">
+        <Tooltip disableInteractive placement='top' title="Move form element up">
           <span>
             <IconButton
               size="small"
@@ -78,7 +74,7 @@ export default function Card({
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip placement='top' title="Move form element down">
+        <Tooltip disableInteractive placement='top' title="Move form element down">
           <span>
             <IconButton
               size="small"
@@ -106,8 +102,8 @@ export default function Card({
       }}>
         <CardGeneralParameterInputs parameters={(componentProps as any)} onChange={onChange} allFormInputs={allFormInputs} mods={mods} showObjectNameInput={showObjectNameInput} />
       </div>
-      <div className={classes.cardInteractions}>
-        <Tooltip placement="top" title="Additional configurations for this form element">
+      <div style={cardInteractionsStyle}>
+        <Tooltip disableInteractive placement="top" title="Additional configurations for this form element">
           <IconButton
             color="primary"
             onClick={() => setModalOpen(true)}
@@ -115,7 +111,7 @@ export default function Card({
             <EditIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip placement='top' title="Delete form element">
+        <Tooltip disableInteractive placement='top' title="Delete form element">
           <IconButton
             onClick={onDelete}
           >
