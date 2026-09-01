@@ -141,7 +141,6 @@ export default function CardGeneralParameterInputs({
             id="inputtype-select"
             value={parameters.category}
             label={inputTypeLabel}
-            placeholder={inputTypeLabel}
             onChange={(e) => {
               // figure out the new 'type'
               const newCategory = e.target.value as string;

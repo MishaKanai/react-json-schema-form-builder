@@ -22,7 +22,12 @@ export default function Collapse(props: Props) {
   const id = React.useMemo(getRandomId, []);
   return (
     <Accordion disabled={props.disableToggle} expanded={props.isOpen} onChange={props.disableToggle ? undefined : props.toggleCollapse}>
-        <AccordionSummary   
+        <AccordionSummary
+          /* v6 changed AccordionSummary's root from `div role="button"` to a real `<button>`.
+             The `title` we render into it carries IconButtons (move up/down), so the v7 default
+             would nest buttons inside a button: invalid DOM, and React warns about it.
+             `component="div"` restores the v4/v5 element and its role/tabIndex/keyboard handling. */
+          component="div"
           style={{ paddingLeft: '.5em' }}
           expandIcon={<ExpandMoreIcon />}
           aria-controls={id + "-content"}

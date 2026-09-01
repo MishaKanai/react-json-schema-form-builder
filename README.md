@@ -25,12 +25,26 @@ MUI line it peer-depends on:
 
 | Version | Peer UI library                              | React        |
 | ------- | -------------------------------------------- | ------------ |
+| 4.x     | `@mui/material` 7.x + `@mui/icons-material`  | 17.x or 18.x |
 | 3.x     | `@mui/material` 5.x + `@mui/icons-material`  | 17.x or 18.x |
 | 2.x     | `@material-ui/core` 4.x (+ `lab`, `icons`)   | 16.x or 17.x |
 
-3.x is a UI-library swap only: no component, prop, or context name changed. `@mui/material` v5
-needs `@emotion/react` and `@emotion/styled` installed alongside it (the library itself imports
+3.x and 4.x are UI-library swaps only: no component, prop, or context name changed. `@mui/material`
+v5+ needs `@emotion/react` and `@emotion/styled` installed alongside it (the library itself imports
 neither directly, and adds no JSS).
+
+4.x publishes both a CommonJS build (`lib/`) and an ES-module build (`lib-esm/`), selected through
+the package's `exports` map. MUI v7 ships its own CJS and ESM builds behind an `exports` map, so a
+CommonJS-only package would make a bundler load a *second* copy of MUI — one for the app's `import`
+and one for this library's `require` — leaving the form builder outside the app's `ThemeProvider`.
+Deep imports (`react-json-schema-form-builder/lib/formBuilder/types`) keep working and keep
+resolving their types from `lib/`.
+
+`lib-esm/` is written for bundlers but is well-formed ES: `scripts/finalizeEsmBuild.cjs` gives its
+relative specifiers real `.js` paths and marks the directory `"type": "module"`. Loading the whole
+stack through Node's own ESM loader still fails on React 17, which predates `exports` and so cannot
+resolve the `react/jsx-runtime` that MUI v7's ESM build imports -- a plain
+`import '@mui/material/Tooltip'` fails identically.
 
 ## Quickstart
 

@@ -1,6 +1,6 @@
 {
   "name": "react-json-schema-form-builder",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "React Component for visually configuring a JSON Schema-based form",
   "author": {
     "name": "Nathan Alam",
@@ -16,23 +16,54 @@
     "visual"
   ],
   "main": "lib/index.js",
+  "module": "lib-esm/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./lib": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "import": "./lib-esm/*.js",
+      "require": "./lib/*.js",
+      "default": "./lib/*.js"
+    },
+    "./lib/*": {
+      "types": "./lib/*.d.ts",
+      "import": "./lib-esm/*.js",
+      "require": "./lib/*.js",
+      "default": "./lib/*.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "clean": "rimraf node_modules coverage dist",
-    "build": "tsc --outDir lib",
+    "build": "npm run build:cjs && npm run build:esm",
     "prepublishOnly": "npm run build",
     "start": "tsc --watch --outDir lib",
     "test": "run-s test:unit",
     "test:unit": "jest --env=jsdom --coverage --coverageDirectory=coverage/",
-    "test:watch": "jest --watch --env=jsdom"
+    "test:watch": "jest --watch --env=jsdom",
+    "build:cjs": "tsc --outDir lib",
+    "build:esm": "tsc --outDir lib-esm --module esnext --moduleResolution node --declaration false && node scripts/finalizeEsmBuild.cjs"
   },
   "peerDependencies": {
-    "@mui/material": "^5.8.0",
-    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^7.0.0",
+    "@mui/icons-material": "^7.0.0",
     "react": "^17.0.0 || ^18.0.0"
   },
   "files": [
     "/lib",
+    "/lib-esm",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
@@ -40,8 +71,8 @@
   "devDependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "5.14.14",
-    "@mui/material": "5.14.14",
+    "@mui/icons-material": "7.3.11",
+    "@mui/material": "7.3.11",
     "@types/jest": "^27.4.7",
     "@types/react": "^17.0.69",
     "@types/react-dom": "^17.0.21",

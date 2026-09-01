@@ -1,5 +1,25 @@
 # Changelog
 
+## [4.0.0]
+
+## Changed
+
+- Moved the peer from `@mui/material`/`@mui/icons-material` 5.x to 7.x. React peers are unchanged
+  (`^17 || ^18`); MUI v7 still supports React 17, and no React 18-only API is used.
+- `Select` no longer accepts a `placeholder` prop in v7's types. It was dropped from the three
+  Selects that passed one; in v5 it only ever reached the `aria-hidden` native input, so nothing
+  visible changes.
+- Pinned `AccordionSummary` back to `component="div"`. v6 changed its root from `div role="button"`
+  to a real `<button>`, which would nest the collapse header's IconButtons inside a button.
+- Added an ES-module build (`lib-esm/`) alongside the CommonJS one and an `exports` map that serves
+  it to `import`. Without it, a bundler resolving this package's `require('@mui/material/...')`
+  picks MUI's CJS build while the app picks its ESM build, giving two MUI instances (measured: a
+  Vite dev prebundle pulled in 221 duplicate MUI modules) and dropping the form builder out of the
+  app's theme. `scripts/finalizeEsmBuild.cjs` post-processes the ESM output so its relative
+  specifiers carry `.js` extensions and the directory declares `"type": "module"`.
+- Public surface is unchanged: `FormBuilder`, `PredefinedGallery`, `textFieldContext`,
+  `includeValidationsContext` keep their names and prop shapes.
+
 ## [3.0.0]
 
 ## Changed

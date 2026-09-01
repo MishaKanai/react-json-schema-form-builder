@@ -101,7 +101,6 @@ function CardShortAnswerParameterInputs({
           id="format-select"
           value={parameters.format ?? ''}
           label="Format"
-          placeholder='Format'
           onChange={(e) => {
             onChange({
               ...parameters,
@@ -125,7 +124,6 @@ function CardShortAnswerParameterInputs({
           id="auto-select"
           value={parameters['ui:autocomplete'] ?? ''}
           label="Auto Complete Category"
-          placeholder='Auto Complete Category'
           onChange={(e) => {
             console.log(e)
             onChange({

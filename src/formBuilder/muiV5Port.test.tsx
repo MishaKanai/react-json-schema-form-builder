@@ -1,8 +1,10 @@
 /**
- * Pins the v4 -> v5 render deltas this library had to compensate for. Each assertion here is a
- * v5 default that would silently change the rendered form if a future edit dropped the pin:
- * TextField/Select/FormControl default variant (standard -> outlined), Button default color
- * (default -> primary), and Tooltip's interactive default (off -> on).
+ * Pins the MUI render deltas this library had to compensate for. Each assertion here is an
+ * upstream default that would silently change the rendered form if a future edit dropped the pin.
+ *
+ * v4 -> v5: TextField/Select/FormControl default variant (standard -> outlined), Button default
+ * color (default -> primary), and Tooltip's interactive default (off -> on).
+ * v6 -> v7: AccordionSummary's root element (div role="button" -> a real <button>).
  */
 import React from "react";
 import { mount } from "enzyme";
@@ -83,6 +85,19 @@ describe('MUI v5 port', () => {
     expect(tooltips.length).toBeGreaterThan(0);
     tooltips.forEach((t) => {
       expect((t.props() as any).disableInteractive).toBe(true);
+    });
+  });
+  it("keeps the collapse header a div[role=button] so its IconButtons are not nested in a button", () => {
+    const wrapper = mount(<FormBuilder schema={schema} uischema={uischema} onChange={() => {}} />, attached());
+    const summaries = wrapper.find('.MuiAccordionSummary-root').filterWhere((n) => typeof n.type() === 'string');
+    expect(summaries.length).toBeGreaterThan(0);
+    summaries.forEach((s) => {
+      const el = s.getDOMNode();
+      expect(el.tagName).toBe('DIV');
+      expect(el.getAttribute('role')).toBe('button');
+      // v7's default <button> root would make every IconButton in the header a nested button.
+      expect(el.querySelectorAll('button').length).toBeGreaterThan(0);
+      expect(el.closest('button')).toBe(null);
     });
   });
   it('renders Alert/AlertTitle (moved from @material-ui/lab to @mui/material)', () => {
